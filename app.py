@@ -9,11 +9,11 @@ from pathlib import Path
 
 TEMPLATES = {
     "B Tech SRN (1st Sem)": {
-        "path": Path("1st_Sem/B Tech SRN.tex"),
+        "path": Path("B Tech SRN.tex"),
         "csv_placeholder": "Ex_1st_Sem_EC_W2025.csv",
     },
     "B Tech (3rd Sem)": {
-        "path": Path("3rd Sem/B Tech.tex"),
+        "path": Path("B Tech.tex"),
         "csv_placeholder": "3rd_Sem_CE_S2026_Ex.csv",
     },
 }
