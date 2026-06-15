@@ -9,15 +9,68 @@ from pathlib import Path
 
 TEMPLATES = {
     "B Tech SRN (1st Sem)": {
-        "path": Path("B Tech SRN.tex"),
+        "path": Path("1st_Sem/B Tech SRN.tex"),
         "csv_placeholder": "Ex_1st_Sem_EC_W2025.csv",
     },
     "B Tech (3rd Sem)": {
-        "path": Path("B Tech.tex"),
+        "path": Path("3rd Sem/B Tech.tex"),
         "csv_placeholder": "3rd_Sem_CE_S2026_Ex.csv",
     },
 }
 DATE_PATTERN = re.compile(r"^\d{2}-\d{2}-\d{4}$")
+SGPA_COLUMNS = [
+    ("I", "sgpaOne"),
+    ("II", "sgpaSecond"),
+    ("III", "sgpaThird"),
+    ("IV", "sgpaFourth"),
+    ("V", "sgpaFifth"),
+    ("VI", "sgpaSixth"),
+    ("VII", "sgpaSeventh"),
+    ("VIII", "sgpaEighth"),
+    ("IX", "sgpaNinth"),
+    ("X", "sgpaTenth"),
+]
+SEMESTER_ALIASES = {
+    "1": "I",
+    "01": "I",
+    "FIRST": "I",
+    "I": "I",
+    "2": "II",
+    "02": "II",
+    "SECOND": "II",
+    "II": "II",
+    "3": "III",
+    "03": "III",
+    "THIRD": "III",
+    "III": "III",
+    "4": "IV",
+    "04": "IV",
+    "FOURTH": "IV",
+    "IV": "IV",
+    "5": "V",
+    "05": "V",
+    "FIFTH": "V",
+    "V": "V",
+    "6": "VI",
+    "06": "VI",
+    "SIXTH": "VI",
+    "VI": "VI",
+    "7": "VII",
+    "07": "VII",
+    "SEVENTH": "VII",
+    "VII": "VII",
+    "8": "VIII",
+    "08": "VIII",
+    "EIGHTH": "VIII",
+    "VIII": "VIII",
+    "9": "IX",
+    "09": "IX",
+    "NINTH": "IX",
+    "IX": "IX",
+    "10": "X",
+    "TENTH": "X",
+    "X": "X",
+}
 
 
 def is_valid_publish_date(value: str) -> bool:
@@ -30,18 +83,38 @@ def is_valid_publish_date(value: str) -> bool:
     return True
 
 
+def normalize_semester(value: str) -> str:
+    cleaned = (value or "").strip().upper().replace("SEMESTER", "").replace("SEM", "").strip()
+    return SEMESTER_ALIASES.get(cleaned, "")
+
+
+def is_zero(value: str) -> bool:
+    try:
+        return float((value or "").strip()) == 0
+    except ValueError:
+        return False
+
+
+def ensure_column(header: list[str], name: str) -> int:
+    if name not in header:
+        header.append(name)
+    return header.index(name)
+
+
 def write_csv_with_publish_date(uploaded_file, output_path: Path, publish_date: str) -> None:
     text = uploaded_file.getvalue().decode("utf-8-sig")
     rows = list(csv.reader(text.splitlines()))
     if not rows:
         raise ValueError("The uploaded CSV is empty.")
 
-    header = rows[0]
-    if "publish" in header:
-        publish_index = header.index("publish")
-    else:
-        header.append("publish")
-        publish_index = len(header) - 1
+    header = [column.strip() for column in rows[0]]
+    publish_index = ensure_column(header, "publish")
+    incentive_indexes = [index for index, column in enumerate(header) if column == "incentive"]
+    if not incentive_indexes:
+        incentive_indexes = [ensure_column(header, "incentive")]
+    semester_index = header.index("Semester") if "Semester" in header else None
+    sgpa_index = header.index("sgpa") if "sgpa" in header else None
+    sgpa_indexes = {roman: ensure_column(header, column) for roman, column in SGPA_COLUMNS}
 
     updated_rows = [header]
     for row in rows[1:]:
@@ -49,7 +122,22 @@ def write_csv_with_publish_date(uploaded_file, output_path: Path, publish_date: 
             continue
         if len(row) < len(header):
             row.extend([""] * (len(header) - len(row)))
+
         row[publish_index] = publish_date
+
+        for incentive_index in incentive_indexes:
+            if is_zero(row[incentive_index]):
+                row[incentive_index] = "--"
+
+        for index in sgpa_indexes.values():
+            if not row[index].strip():
+                row[index] = "--"
+
+        if semester_index is not None and sgpa_index is not None:
+            semester = normalize_semester(row[semester_index])
+            if semester and row[sgpa_index].strip():
+                row[sgpa_indexes[semester]] = row[sgpa_index].strip()
+
         updated_rows.append(row)
 
     if len(updated_rows) == 1:
