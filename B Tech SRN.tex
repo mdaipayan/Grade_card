@@ -65,37 +65,59 @@ ACADEMIC YEAR \session
     \hline
     %1
     \setcounter{sn}{0} % Initialize counter
-     \stepcounter{sn}\thesn & \codeOne   & \subOne   & \creditOne   & \justifying \gradeOne   & \creditpointOne   \\
+\IfStrEq{\gradeOne}{--}{}{
+    \stepcounter{sn}\thesn & \codeOne & \subOne & \creditOne & \justifying \gradeOne & \creditpointOne \\
+}
     
     %2
-    \stepcounter{sn}\thesn & \codeTwo   & \subTwo   & \creditTwo   & \justifying \gradeTwo   & \creditpointTwo \\
+\IfStrEq{\gradeTwo}{--}{}{
+    \stepcounter{sn}\thesn & \codeTwo & \subTwo & \creditTwo & \justifying \gradeTwo & \creditpointTwo \\
+}
     
     %3
+\IfStrEq{\gradeThree}{--}{}{
     \stepcounter{sn}\thesn & \codeThree & \subThree & \creditThree & \justifying \gradeThree & \creditpointThree \\
+}
     
     %4
-    \stepcounter{sn}\thesn & \codeFour  & \subFour  & \creditFour  & \justifying \gradeFour  & \creditpointFour \\
+\IfStrEq{\gradeFour}{--}{}{
+    \stepcounter{sn}\thesn & \codeFour & \subFour & \creditFour & \justifying \gradeFour & \creditpointFour \\
+}
     
     %5
-    \stepcounter{sn}\thesn & \codeFive  & \subFive  & \creditFive  & \justifying \gradeFive  & \creditpointFive\\
+\IfStrEq{\gradeFive}{--}{}{
+    \stepcounter{sn}\thesn & \codeFive & \subFive & \creditFive & \justifying \gradeFive & \creditpointFive \\
+}
     
     %6
-    \stepcounter{sn}\thesn & \codeSix   & \subSix   & \creditSix   & \justifying \gradeSix   & \creditpointSix \\
+\IfStrEq{\gradeSix}{--}{}{
+    \stepcounter{sn}\thesn & \codeSix & \subSix & \creditSix & \justifying \gradeSix & \creditpointSix \\
+}
     
     %7
+\IfStrEq{\gradeSeven}{--}{}{
     \stepcounter{sn}\thesn & \codeSeven & \subSeven & \creditSeven & \justifying \gradeSeven & \creditpointSeven \\
+}
     
     %8
+\IfStrEq{\gradeEight}{--}{}{
     \stepcounter{sn}\thesn & \codeEight & \subEight & \creditEight & \justifying \gradeEight & \creditpointEight \\
+}
     
     %9
-    \stepcounter{sn}\thesn & \codeNine  & \subNine  & \creditNine  & \justifying \gradeNine  & \creditpointNine \\
+\IfStrEq{\gradeNine}{--}{}{
+    \stepcounter{sn}\thesn & \codeNine & \subNine & \creditNine & \justifying \gradeNine & \creditpointNine \\
+}
     
     %10
-    \stepcounter{sn}\thesn & \codeTen   & \subTen   & \creditTen   & \justifying \gradeTen   & \creditpointTen \\
+\IfStrEq{\gradeTen}{--}{}{
+    \stepcounter{sn}\thesn & \codeTen & \subTen & \creditTen & \justifying \gradeTen & \creditpointTen \\
+}
 
     %11
-    \stepcounter{sn}\thesn & \codeEleven & \subEleven & \creditEleven &\justifying  \gradeEleven & \creditpointEleven \\
+\IfStrEq{\gradeEleven}{--}{}{
+    \stepcounter{sn}\thesn & \codeEleven & \subEleven & \creditEleven & \justifying \gradeEleven & \creditpointEleven \\
+}
 
    
     \hline
@@ -124,7 +146,7 @@ Marks \% = (CGPA-0.75)$\times$10
 \hline
 Semester & I & II & III & IV & V & VI & VII & VIII \\
 \hline
-SGPA & \sgpa & -- & -- & -- & -- & -- & -- & -- \\
+SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & \sgpaFifth & \sgpaSixth & \sgpaSeventh & \sgpaEighth \\
 \hline
 \end{tabular}
 }{}
@@ -135,7 +157,7 @@ SGPA & \sgpa & -- & -- & -- & -- & -- & -- & -- \\
 \hline
 Semester & I & II & III & IV \\
 \hline
-SGPA & \sgpa & -- & -- & -- \\
+SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth \\
 \hline
 \end{tabular}
 }{}
@@ -146,7 +168,7 @@ SGPA & \sgpa & -- & -- & -- \\
 \hline
 Semester & I & II & III & IV & V & VI & VII & VIII & IX & X \\
 \hline
-SGPA & \sgpaOne & \sgpaSecond & \sgpa & -- & -- & -- & -- & -- & -- & -- \\
+SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & \sgpaFifth & \sgpaSixth & \sgpaSeventh & \sgpaEighth & \sgpaNinth & \sgpaTenth \\
 \hline
 \end{tabular}
 }{}
