@@ -8,13 +8,13 @@ from pathlib import Path
 
 
 TEMPLATES = {
-    "B Tech SRN (1st Sem)": {
+    "Grade Card with URN": {
         "path": Path("B Tech SRN.tex"),
-        "csv_placeholder": "Ex_1st_Sem_EC_W2025.csv",
+        "csv_placeholder": "4th_Sem_EC_S2026.csv",
     },
-    "B Tech (3rd Sem)": {
+    "Grade Card without URN": {
         "path": Path("B Tech.tex"),
-        "csv_placeholder": "3rd_Sem_CE_S2026_Ex.csv",
+        "csv_placeholder": "4th_Sem_EC_S2026.csv",
     },
 }
 DATE_PATTERN = re.compile(r"^\d{2}-\d{2}-\d{4}$")
@@ -148,8 +148,18 @@ def write_csv_with_publish_date(uploaded_file, output_path: Path, publish_date: 
         writer.writerows(updated_rows)
 
 
+CSVREADER_PATTERN = re.compile(r"(\\csvreader(?:\[[^\]]*\])?\s*\{)[^}]*(\})")
+
+
 def build_tex(template_path: Path, csv_placeholder: str, csv_name: str) -> str:
     tex = template_path.read_text(encoding="utf-8")
+    # Swap whatever filename appears in the template's \csvreader{...} for the
+    # uploaded CSV. This avoids breakage when the template's placeholder name
+    # drifts from the one configured in TEMPLATES.
+    new_tex, count = CSVREADER_PATTERN.subn(r"\g<1>" + csv_name + r"\g<2>", tex, count=1)
+    if count:
+        return new_tex
+    # Fallback: exact-string placeholder replacement.
     return tex.replace("{" + csv_placeholder + "}", "{" + csv_name + "}")
 
 
