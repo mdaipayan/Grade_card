@@ -1,0 +1,172 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, top=6.5cm, left=0.75in, right=1in, bottom=1in]{geometry}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{ragged2e}
+\usepackage{eso-pic}
+\usepackage{csvsimple}
+\usepackage{xstring}
+\usepackage{datetime}
+
+\newcommand{\resetfont}{\normalsize}
+
+\newcounter{sn}
+
+\begin{document}
+\hbadness=10000
+\vbadness=10000
+\hfuzz=1000pt
+\vfuzz=1000pt
+\pagenumbering{gobble}
+
+% ======================================================
+% READ CSV AND GENERATE ONE GRADE CARD PER STUDENT
+% ======================================================
+\csvreader[head to column names]{3rd_Sem_CE_S2026_Ex.csv}{}{
+
+\clearpage
+
+% ---------- Background ----------
+%\AddToShipoutPicture*{
+%   \put(0,0){
+%       \includegraphics[width=\paperwidth,height=\paperheight]{Grade Card Ver 2.%jpg}
+%   }
+%}
+
+% ---------- Heading ----------
+\begin{center}
+\textbf{SEMESTER GRADE REPORT}\\
+ACADEMIC YEAR \session
+\end{center}
+
+\vspace{0.5cm}
+
+% ---------- Student Info ----------
+\noindent
+\begin{tabular}{lclp{1cm}lcl}
+\textbf{Student's Name} &: & \multicolumn{5}{l}{\name} \\
+\textbf{Exam Roll No.} &: & \roll & & \textbf{Gender} &: & \Gender \\
+\textbf{Programme} &: & \Programme & & \textbf{Examination} &: & \examination \\
+\textbf{Semester} &: & \Semester & & \textbf{Medium} &: & English \\
+\textbf{Mother's Name} &: & \mothername & & \textbf{Category} &: & \Category \\
+\end{tabular}
+
+\vspace{0.5cm}
+
+% ---------- Course Table ----------
+\centering
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|>{\centering\arraybackslash}p{0.8cm}|l|p{7.5cm}|>{\centering\arraybackslash}p{1.2cm}|>{\centering\arraybackslash}p{1.65cm}|>{\centering\arraybackslash}p{1.2cm}|}
+    \hline
+    \textbf{Sr. No.} & \textbf{Course Code} & \textbf{Course Name} & \textbf{Course Credit} & \textbf{Grade Obtained} & \textbf{Credit Points} \\
+    \hline
+    \setcounter{sn}{0} % Initialize counter
+    \stepcounter{sn}\thesn & \codeOne   & \subOne   & \creditOne   & \justifying \gradeOne   & \creditpointOne   \\
+    
+    \stepcounter{sn}\thesn & \codeTwo   & \subTwo   & \creditTwo   & \justifying \gradeTwo   & \creditpointTwo \\
+    
+    \stepcounter{sn}\thesn & \codeThree & \subThree & \creditThree & \justifying \gradeThree & \creditpointThree \\
+    
+    \stepcounter{sn}\thesn & \codeFour  & \subFour  & \creditFour  & \justifying \gradeFour  & \creditpointFour \\
+    
+    \stepcounter{sn}\thesn & \codeFive  & \subFive  & \creditFive  & \justifying \gradeFive  & \creditpointFive\\
+    
+    \stepcounter{sn}\thesn & \codeSix   & \subSix   & \creditSix   & \justifying \gradeSix   & \creditpointSix \\
+    
+    \stepcounter{sn}\thesn & \codeSeven & \subSeven & \creditSeven & \justifying \gradeSeven & \creditpointSeven \\
+    
+    \stepcounter{sn}\thesn & \codeEight & \subEight & \creditEight & \justifying \gradeEight & \creditpointEight \\
+    
+    \stepcounter{sn}\thesn & \codeNine  & \subNine  & \creditNine  & \justifying \gradeNine  & \creditpointNine \\
+    
+    \stepcounter{sn}\thesn & \codeTen   & \subTen   & \creditTen   & \justifying \gradeTen   & \creditpointTen \\
+
+   %\hline
+    \stepcounter{sn}\thesn & \codeEleven & \subEleven & \creditEleven &\justifying  \gradeEleven & \creditpointEleven \\
+
+   
+    \hline
+    &\textbf{Total}& & {\creditTotal} & &\cpTotal  \\
+    \hline
+\end{tabular}\\
+\flushleft Incentive: \incentive
+\vspace{0.05cm}
+
+
+%-----------B Tech & M Tech------------------------------------------
+\flushleft\footnotesize{Grade Points for Grade: A+ = 10, A = 9, B+ = 8.25, B = 7.5, C+ = 6.75, C = 6, D = 5, F = 0 (Fail), Z = 0 (Absent) \\ Credit Points $=$ Grade Point $\times$ Course Credit\\
+SGPA $=$ ($\sum$ Credit\hspace{1mm}Points\hspace{1mm} $+$\hspace{1mm} Incentive)/ $\sum$ Course\hspace{1mm} Credit \hspace{2mm}\\
+CGPA $=$ $\sum$(Semesterwise\hspace{1mm}Total\hspace{1mm}Credit\hspace{1mm}$\times$\hspace{1mm} SGPA)/ $\sum$ Semesterwise\hspace{1mm}Total\hspace{1mm}Credit\\
+Marks \% = (CGPA-0.75)$\times$10
+\vspace{0.25cm}}
+
+
+% ======================================================
+% PROGRAMME-WISE SGPA TABLE (AUTO)
+% ======================================================
+
+% -------- B. Tech --------
+\IfSubStr{\Programme}{B. Tech.}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Semester & I & II & III & IV & V & VI & VII & VIII \\
+\hline
+SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & -- & -- & -- & -- \\
+\hline
+\end{tabular}
+}{}
+
+% -------- M. Tech --------
+\IfSubStr{\Programme}{M. Tech.}{
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Semester & I & II & III & IV \\
+\hline
+SGPA & \sgpaOne & \sgpaSecond & \sgpa & -- \\
+\hline
+\end{tabular}
+}{}
+
+% -------- B. Arch --------
+\IfSubStr{\Programme}{B. Arch.}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Semester & I & II & III & IV & V & VI & VII & VIII & IX & X \\
+\hline
+SGPA & \sgpaOne & \sgpaSecond & \sgpa & -- & -- & -- & -- & -- & -- & -- \\
+\hline
+\end{tabular}
+}{}
+
+\vspace{0.3cm}
+
+\textbf{Result: \result}
+
+\vspace{0.7cm}
+
+\flushright \textbf{Controller of Examination}\\
+\flushleft Date: \publish
+
+\vspace{0.3cm}
+
+\footnotesize
+\noindent Note:
+\begin{enumerate}
+\item * Indicates Pass by Grace.
+\item CGPA will be printed on Final Semester Grade Report.
+\item This Statement is subjected to corrections, if any.
+\end{enumerate}
+
+\footnotesize\textbf{\MakeUppercase{
+This statement is not valid unless it bears the signature stamp of the Controller of Examination with the seal of the Institute.
+}}
+
+\resetfont
+}
+
+\end{document}
