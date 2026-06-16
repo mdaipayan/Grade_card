@@ -1,7 +1,7 @@
 \documentclass[a4paper,10pt]{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[a4paper, top=6.5cm, left=0.75in, right=0.75in, bottom=0.75in]{geometry}
+\usepackage[a4paper, top=6.5cm, left=0.75in, right=1in, bottom=0.5in]{geometry}
 \usepackage{array}
 \usepackage{amsmath}
 \usepackage{caption}
@@ -9,35 +9,34 @@
 \usepackage{ragged2e}
 \usepackage{eso-pic}
 \usepackage{csvsimple}
+\csvset{respect all=true, before reading=\catcode`\&=12}
 \usepackage{xstring}
 \usepackage{datetime}
-% Ensure special characters (like &) are treated safely
-\csvset{respect all=true, before reading=\catcode`\&=12}
 
 \newcommand{\resetfont}{\normalsize}
+
 \newcounter{sn}
 
-% Expandable row printer: skips a course whose grade is "--" without
-% leaving an open cell before \hline (avoids "Misplaced \noalign").
-% #1 code, #2 name, #3 credit, #4 grade, #5 credit points
-\newcommand{\courserow}[5]{\ifnum\pdfstrcmp{#4}{--}=0\relax\else\stepcounter{sn}\thesn & #1 & #2 & #3 & \justifying #4 & #5 \\\fi}
-
 \begin{document}
+\hbadness=10000
+\vbadness=10000
+\hfuzz=1000pt
+\vfuzz=1000pt
 \pagenumbering{gobble}
 
 % ======================================================
 % READ CSV AND GENERATE ONE GRADE CARD PER STUDENT
 % ======================================================
-\csvreader[head to column names]{Ex_1st_Sem_EC_W2025.csv}{}{
+\csvreader[head to column names]{4th_Sem_EC_S2026.csv}{}{
 
 \clearpage
 
 % ---------- Background ----------
-%\AddToShipoutPicture*{
-%   \put(0,0){
-%       \includegraphics[width=\paperwidth,height=\paperheight]{Grade Card %Ver 2.jpg}
-%   }
-%}
+\AddToShipoutPicture*{
+   \put(0,0){
+       \includegraphics[width=\paperwidth,height=\paperheight]{Grade Card Ver 2.jpg}
+   }
+}
 
 % ---------- Heading ----------
 \begin{center}
@@ -55,10 +54,16 @@ ACADEMIC YEAR \session
 \textbf{Programme} &: & \Programme & & \textbf{Examination} &: & \examination \\
 \textbf{Semester} &: & \Semester & & \textbf{Category} &: & \Category \\
 \textbf{Mother's Name} &: & \mothername & & \textbf{Gender} &: & \Gender \\
-\textbf{Enrollment No.} &: & -- & & \textbf{Medium} &: & English \\
+\textbf{Enrollment No.} &: & \ERN & & \textbf{Medium} &: & English \\
 \end{tabular}
 
 \vspace{0.5cm}
+
+\IfStrEq{\codeEleven}{--}{%
+\def\CourseElevenRow{}%
+}{%
+\def\CourseElevenRow{\stepcounter{sn}\thesn & \codeEleven & \subEleven & \creditEleven &\justifying  \gradeEleven & \creditpointEleven \\}%
+}
 
 % ---------- Course Table ----------
 \centering
@@ -69,24 +74,35 @@ ACADEMIC YEAR \session
     \textbf{Sr. No.} & \textbf{Course Code} & \textbf{Course Name} & \textbf{Course Credit} & \textbf{Grade Obtained} & \textbf{Credit Points} \\
     \hline
     \setcounter{sn}{0} % Initialize counter
-    \courserow{\codeOne}{\subOne}{\creditOne}{\gradeOne}{\creditpointOne}
-    \courserow{\codeTwo}{\subTwo}{\creditTwo}{\gradeTwo}{\creditpointTwo}
-    \courserow{\codeThree}{\subThree}{\creditThree}{\gradeThree}{\creditpointThree}
-    \courserow{\codeFour}{\subFour}{\creditFour}{\gradeFour}{\creditpointFour}
-    \courserow{\codeFive}{\subFive}{\creditFive}{\gradeFive}{\creditpointFive}
-    \courserow{\codeSix}{\subSix}{\creditSix}{\gradeSix}{\creditpointSix}
-    \courserow{\codeSeven}{\subSeven}{\creditSeven}{\gradeSeven}{\creditpointSeven}
-    \courserow{\codeEight}{\subEight}{\creditEight}{\gradeEight}{\creditpointEight}
-    \courserow{\codeNine}{\subNine}{\creditNine}{\gradeNine}{\creditpointNine}
-    \courserow{\codeTen}{\subTen}{\creditTen}{\gradeTen}{\creditpointTen}
-    \courserow{\codeEleven}{\subEleven}{\creditEleven}{\gradeEleven}{\creditpointEleven}
+    \stepcounter{sn}\thesn & \codeOne   & \subOne   & \creditOne   & \justifying \gradeOne   & \creditpointOne   \\
+    
+    \stepcounter{sn}\thesn & \codeTwo   & \subTwo   & \creditTwo   & \justifying \gradeTwo   & \creditpointTwo \\
+    
+    \stepcounter{sn}\thesn & \codeThree & \subThree & \creditThree & \justifying \gradeThree & \creditpointThree \\
+    
+    \stepcounter{sn}\thesn & \codeFour  & \subFour  & \creditFour  & \justifying \gradeFour  & \creditpointFour \\
+    
+    \stepcounter{sn}\thesn & \codeFive  & \subFive  & \creditFive  & \justifying \gradeFive  & \creditpointFive\\
+    
+    \stepcounter{sn}\thesn & \codeSix   & \subSix   & \creditSix   & \justifying \gradeSix   & \creditpointSix \\
+    
+    \stepcounter{sn}\thesn & \codeSeven & \subSeven & \creditSeven & \justifying \gradeSeven & \creditpointSeven \\
+    
+    \stepcounter{sn}\thesn & \codeEight & \subEight & \creditEight & \justifying \gradeEight & \creditpointEight \\
+    
+    \stepcounter{sn}\thesn & \codeNine  & \subNine  & \creditNine  & \justifying \gradeNine  & \creditpointNine \\
+    
+    \stepcounter{sn}\thesn & \codeTen   & \subTen   & \creditTen   & \justifying \gradeTen   & \creditpointTen \\
+
+   %\hline
+    \CourseElevenRow
 
    
     \hline
     &\textbf{Total}& & {\creditTotal} & &\cpTotal  \\
     \hline
 \end{tabular}\\
-\flushleft Incentive: \incentive
+\flushleft Incentive: \IfStrEq{\gradeTwelve}{--}{--}{\incentive}
 \vspace{0.05cm}
 
 
@@ -108,7 +124,7 @@ Marks \% = (CGPA-0.75)$\times$10
 \hline
 Semester & I & II & III & IV & V & VI & VII & VIII \\
 \hline
-SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & \sgpaFifth & \sgpaSixth & \sgpaSeventh & \sgpaEighth \\
+SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & -- & -- & -- & -- \\
 \hline
 \end{tabular}
 }{}
@@ -119,7 +135,7 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & \sgpaFifth & \sgpaSix
 \hline
 Semester & I & II & III & IV \\
 \hline
-SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth \\
+SGPA & \sgpaOne & \sgpaSecond & \sgpa & -- \\
 \hline
 \end{tabular}
 }{}
@@ -130,20 +146,19 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth \\
 \hline
 Semester & I & II & III & IV & V & VI & VII & VIII & IX & X \\
 \hline
-SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & \sgpaFifth & \sgpaSixth & \sgpaSeventh & \sgpaEighth & \sgpaNinth & \sgpaTenth \\
+SGPA & \sgpaOne & \sgpaSecond & \sgpa & -- & -- & -- & -- & -- & -- & -- \\
 \hline
 \end{tabular}
 }{}
 
 \vspace{0.3cm}
 
-\textbf{Result: \result}\\
-\vspace{0.2cm}
-%\textbf{Medium} : English 
+\textbf{Result: \result}
+
 \vspace{0.7cm}
 
 \flushright \textbf{Controller of Examination}\\
-\flushleft Date: \publish
+\flushleft Date: 13-06-2026
 
 \vspace{0.3cm}
 
@@ -159,6 +174,7 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & \sgpaFifth & \sgpaSix
 \footnotesize\textbf{\MakeUppercase{
 This statement is not valid unless it bears the signature stamp of the Controller of Examination with the seal of the Institute.
 }}
+
 
 \resetfont
 }
