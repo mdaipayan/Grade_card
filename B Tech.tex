@@ -58,6 +58,14 @@ ACADEMIC YEAR \session
 
 \vspace{0.5cm}
 
+--------------Course Ten ----------------------
+\IfStrEq{\codeTen}{--}{%
+\def\CourseTenRow{}%
+}{%
+\def\CourseTenRow{\stepcounter{sn}\thesn & \codeTen & \subTen & \creditTen &\justifying  \gradeTen & \creditpointTen \\}%
+}
+
+------------------Course Eleven----------------
 \IfStrEq{\codeEleven}{--}{%
 \def\CourseElevenRow{}%
 }{%
@@ -91,7 +99,7 @@ ACADEMIC YEAR \session
     
     \stepcounter{sn}\thesn & \codeNine  & \subNine  & \creditNine  & \justifying \gradeNine  & \creditpointNine \\
     
-    \stepcounter{sn}\thesn & \codeTen   & \subTen   & \creditTen   & \justifying \gradeTen   & \creditpointTen \\
+    \CourseTenRow
 
    %\hline
     \CourseElevenRow
@@ -140,12 +148,12 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpa & -- \\
 }{}
 
 % -------- B. Arch --------
-\IfSubStr{\Programme}{B. Arch.}{
+\IfSubStr{\Programme}{Bachelor of Architecture}{
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 Semester & I & II & III & IV & V & VI & VII & VIII & IX & X \\
 \hline
-SGPA & \sgpaOne & \sgpaSecond & \sgpa & -- & -- & -- & -- & -- & -- & -- \\
+SGPA & \sgpaOne & \sgpaSecond & \sgpaThrid & \sgpaFourth & -- & -- & -- & -- & -- & -- \\
 \hline
 \end{tabular}
 }{}
