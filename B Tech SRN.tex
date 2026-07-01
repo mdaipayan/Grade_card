@@ -59,6 +59,77 @@ ACADEMIC YEAR \session
 
 \vspace{0.5cm}
 
+% -------------- Course One ----------------------
+\IfStrEq{\codeOne}{--}{%
+\def\CourseOneRow{}%
+}{%
+\def\CourseOneRow{\stepcounter{sn}\thesn & \codeOne & \subOne & \creditOne &\justifying  \gradeOne & \creditpointOne \\}%
+}
+
+% -------------- Course Two ----------------------
+\IfStrEq{\codeTwo}{--}{%
+\def\CourseTwoRow{}%
+}{%
+\def\CourseTwoRow{\stepcounter{sn}\thesn & \codeTwo & \subTwo & \creditTwo &\justifying  \gradeTwo & \creditpointTwo \\}%
+}
+
+% -------------- Course Three ----------------------
+\IfStrEq{\codeThree}{--}{%
+\def\CourseThreeRow{}%
+}{%
+\def\CourseThreeRow{\stepcounter{sn}\thesn & \codeThree & \subThree & \creditThree &\justifying  \gradeThree & \creditpointThree \\}%
+}
+
+% -------------- Course Four ----------------------
+\IfStrEq{\codeFour}{--}{%
+\def\CourseFourRow{}%
+}{%
+\def\CourseFourRow{\stepcounter{sn}\thesn & \codeFour & \subFour & \creditFour &\justifying  \gradeFour & \creditpointFour \\}%
+}
+
+% -------------- Course Five ----------------------
+\IfStrEq{\codeFive}{--}{%
+\def\CourseFiveRow{}%
+}{%
+\def\CourseFiveRow{\stepcounter{sn}\thesn & \codeFive & \subFive & \creditFive &\justifying  \gradeFive & \creditpointFive \\}%
+}
+
+% -------------- Course Six ----------------------
+\IfStrEq{\codeSix}{--}{%
+\def\CourseSixRow{}%
+}{%
+\def\CourseSixRow{\stepcounter{sn}\thesn & \codeSix & \subSix & \creditSix &\justifying  \gradeSix & \creditpointSix \\}%
+}
+
+% -------------- Course Seven ----------------------
+\IfStrEq{\codeSeven}{--}{%
+\def\CourseSevenRow{}%
+}{%
+\def\CourseSevenRow{\stepcounter{sn}\thesn & \codeSeven & \subSeven & \creditSeven &\justifying  \gradeSeven & \creditpointSeven \\}%
+}
+
+% -------------- Course Eight ----------------------
+\IfStrEq{\codeEight}{--}{%
+\def\CourseEightRow{}%
+}{%
+\def\CourseEightRow{\stepcounter{sn}\thesn & \codeEight & \subEight & \creditEight &\justifying  \gradeEight & \creditpointEight \\}%
+}
+
+% -------------- Course Nine ----------------------
+\IfStrEq{\codeNine}{--}{%
+\def\CourseNineRow{}%
+}{%
+\def\CourseNineRow{\stepcounter{sn}\thesn & \codeNine & \subNine & \creditNine &\justifying  \gradeNine & \creditpointNine \\}%
+}
+
+% -------------- Course Ten ----------------------
+\IfStrEq{\codeTen}{--}{%
+\def\CourseTenRow{}%
+}{%
+\def\CourseTenRow{\stepcounter{sn}\thesn & \codeTen & \subTen & \creditTen &\justifying  \gradeTen & \creditpointTen \\}%
+}
+
+% -------------- Course Eleven -------------------
 \IfStrEq{\codeEleven}{--}{%
 \def\CourseElevenRow{}%
 }{%
@@ -74,31 +145,19 @@ ACADEMIC YEAR \session
     \textbf{Sr. No.} & \textbf{Course Code} & \textbf{Course Name} & \textbf{Course Credit} & \textbf{Grade Obtained} & \textbf{Credit Points} \\
     \hline
     \setcounter{sn}{0} % Initialize counter
-    \stepcounter{sn}\thesn & \codeOne   & \subOne   & \creditOne   & \justifying \gradeOne   & \creditpointOne   \\
-    
-    \stepcounter{sn}\thesn & \codeTwo   & \subTwo   & \creditTwo   & \justifying \gradeTwo   & \creditpointTwo \\
-    
-    \stepcounter{sn}\thesn & \codeThree & \subThree & \creditThree & \justifying \gradeThree & \creditpointThree \\
-    
-    \stepcounter{sn}\thesn & \codeFour  & \subFour  & \creditFour  & \justifying \gradeFour  & \creditpointFour \\
-    
-    \stepcounter{sn}\thesn & \codeFive  & \subFive  & \creditFive  & \justifying \gradeFive  & \creditpointFive\\
-    
-    \stepcounter{sn}\thesn & \codeSix   & \subSix   & \creditSix   & \justifying \gradeSix   & \creditpointSix \\
-    
-    \stepcounter{sn}\thesn & \codeSeven & \subSeven & \creditSeven & \justifying \gradeSeven & \creditpointSeven \\
-    
-    \stepcounter{sn}\thesn & \codeEight & \subEight & \creditEight & \justifying \gradeEight & \creditpointEight \\
-    
-    \stepcounter{sn}\thesn & \codeNine  & \subNine  & \creditNine  & \justifying \gradeNine  & \creditpointNine \\
-    
-    \stepcounter{sn}\thesn & \codeTen   & \subTen   & \creditTen   & \justifying \gradeTen   & \creditpointTen \\
-
-   %\hline
+    \CourseOneRow
+    \CourseTwoRow
+    \CourseThreeRow
+    \CourseFourRow
+    \CourseFiveRow
+    \CourseSixRow
+    \CourseSevenRow
+    \CourseEightRow
+    \CourseNineRow
+    \CourseTenRow
     \CourseElevenRow
-
-   
     \hline
+
     &\textbf{Total}& & {\creditTotal} & &\cpTotal  \\
     \hline
 \end{tabular}\\
