@@ -191,13 +191,15 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & -- & -- & -- & -- \\
 
 % -------- M. Tech --------
 \IfSubStr{\Programme}{M. Tech.}{%
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-Semester & I & II & III & IV \\
-\hline
-SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth  \\
-\hline
-\end{tabular}
+    \IfStrEq{\card}{--}{%
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Semester & I & II & III & IV \\
+        \hline
+        SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth \\
+        \hline
+        \end{tabular}
+    }{}%
 }{}
 
 
