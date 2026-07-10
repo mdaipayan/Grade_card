@@ -189,6 +189,19 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & -- & -- & -- & -- \\
 \end{tabular}
 }{}
 
+% -------- B. Tech Final Year--------
+\IfSubStr{\Programme}{B. Tech.}{%
+    \IfStrEq{\card}{final}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        Semester & I & II & III & IV & V & VI & VII & VIII \\
+        \hline
+        SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & \sgpaFifth & \sgpaSixth & \sgpaSeventh & \sgpaEighth \\
+        \hline
+        \end{tabular}
+    }{}%
+}{}
+
 % -------- M. Tech --------
 \IfSubStr{\Programme}{M. Tech.}{%
     \IfStrEq{\card}{--}{%
@@ -244,7 +257,7 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & -- & -- & -- & -- & -
 \noindent Note:
 \begin{enumerate}
 \item * Indicates Pass by Grace.
-\item CGPA will be printed on the Final Semester Grade Report.
+%\item CGPA will be printed on the Final Semester Grade Report.
 \item This Statement is subject to corrections, if any.
 \item Divisions: CGPA $\ge 8.25$ I Class with Distinction, $\ge 6.75$ I Class, $> 5$ II Class, $= 5$ Pass.
 \end{enumerate}%
