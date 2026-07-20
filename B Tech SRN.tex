@@ -189,14 +189,30 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & -- & -- & -- & -- \\
 }{}
 
 % -------- M. Tech --------
-\IfSubStr{\Programme}{M. Tech.}{
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-Semester & I & II & III & IV \\
-\hline
-SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth \\
-\hline
-\end{tabular}
+\IfSubStr{\Programme}{M. Tech.}{%
+    \IfStrEq{\card}{--}{%
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Semester & I & II & III & IV \\
+        \hline
+        SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth \\
+        \hline
+        \end{tabular}
+    }{}%
+}{}
+
+
+% --------- M. Tech Final -----------
+\IfSubStr{\Programme}{M. Tech.}{%
+    \IfSubStr{\Semester}{Fourth}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        Semester & I & II & III & IV & CGPA & Percentage & Division\\
+        \hline
+        SGPA & \sgpaOne & \sgpaSecond & \sgpaThird & \sgpaFourth & \cgpa & \percent & \division \\
+        \hline
+        \end{tabular}
+    }{}%
 }{}
 
 % -------- B. Arch --------
@@ -220,15 +236,29 @@ SGPA & \sgpaOne & \sgpaSecond & \sgpa & -- & -- & -- & -- & -- & -- & -- \\
 \flushleft Date: \publish
 
 \vspace{0.3cm}
-
+% -----Final Card -----
+\IfStrEq{\card}{final}{%
 \footnotesize
-\noindent Note: \\
-\begin{enumerate} 
-    \item * Indicates Pass by Grace. 
-    \item URN $-$ Unique Registration Number 
-    \item CGPA will be printed on Final Semester Grade Report.
-    \item This Statement is subjected to corrections, if any. 
-\end{enumerate}
+\noindent Note:
+\begin{enumerate}
+\item * Indicates Pass by Grace.
+%\item CGPA will be printed on the Final Semester Grade Report.
+\item This Statement is subject to corrections, if any.
+\item Divisions: CGPA $\ge 8.25$ I Class with Distinction, $\ge 6.75$ I Class, $> 5$ II Class, $= 5$ Pass.
+\end{enumerate}%
+}{}
+
+% ------- IF not final card --------
+\IfStrEq{\card}{--}{%
+\footnotesize
+\noindent Note:
+\begin{enumerate}
+\item * Indicates Pass by Grace.
+\item CGPA will be printed on the Final Semester Grade Report.
+\item This Statement is subject to corrections, if any.
+\end{enumerate}%
+}{}
+
 \vspace{1mm}
 \footnotesize\textbf{\MakeUppercase{
 This statement is not valid unless it bears the signature stamp of the Controller of Examination with the seal of the Institute.
