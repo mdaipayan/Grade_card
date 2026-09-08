@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 from datetime import datetime
 from pathlib import Path
-import tectonic
+#import tectonic
 
 TEMPLATES = {
     "Grade Card with URN": {
